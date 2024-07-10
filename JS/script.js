@@ -24,11 +24,13 @@ function createCountryCards(countriesData) {
     countryCard.classList.add("country-card");
     countryCard.innerHTML = `
     <div class="image-container">
-    <img src="${country.flags.png}">
+    <img src="${country.flags.svg}">
     </div>
     <div class="country-info">
         <h2 id="countryName">${country.name.common}</h2>
-        <p>Population: <span id="population">${country.population}</span></p>
+        <p>Population: <span id="population">${country.population.toLocaleString(
+          "en-in"
+        )}</span></p>
         <p>Region: <span id="region">${country.region}</span></p>
         <p>Capital: <span id="capital">${
           country.capital ? country.capital[0] : "N/A"
