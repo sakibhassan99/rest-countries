@@ -122,7 +122,9 @@ a {
 
 .countries {
     display: flex;
+    align-items: center;
     gap: 15px;
+    text-align: center;
 }
 
 .countries a {
@@ -154,11 +156,11 @@ a {
     #country-container {
         padding: 50px;
     }
-    
+
     .country-details {
         gap: 50px;
         flex-direction: column;
-        
+
     }
 
     .details_container {
@@ -181,6 +183,14 @@ a {
         font-size: 14px;
     }
 
+    .countries {
+        flex-wrap: wrap;
+    }
+
+    .border-countries {
+        margin-top: 25px;
+    }
+
 }
 
 @media (max-width: 468px) {
@@ -195,13 +205,10 @@ a {
     .icon-container {
         font-size: 12px;
     }
+
     .border-countries {
         align-items: initial;
         flex-direction: column;
-    }
-
-    .countries {
-        flex-wrap: wrap;
     }
 
 }

@@ -75,7 +75,7 @@ async function createBorderCountries(border) {
   );
   const availableBorder = await response.json();
   const newBorderEl = document.createElement("a");
-  newBorderEl.href = `/country.html?name=${availableBorder[0].name.common}`;
+  newBorderEl.href = `/country.html?name=${availableBorder[0].name.official}`;
   newBorderEl.innerText = availableBorder[0].name.common;
 
   bordersEl.appendChild(newBorderEl);

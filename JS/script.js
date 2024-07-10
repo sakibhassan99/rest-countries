@@ -20,7 +20,7 @@ function getLocalStorage(key) {
 function createCountryCards(countriesData) {
   for (const country of countriesData) {
     const countryCard = document.createElement("a");
-    countryCard.href = `/country.html?name=${country.name.common}`;
+    countryCard.href = `/country.html?name=${country.name.official}`;
     countryCard.classList.add("country-card");
     countryCard.innerHTML = `
     <div class="image-container">
