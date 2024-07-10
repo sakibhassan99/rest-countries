@@ -1,0 +1,134 @@
+/* Common Css */
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --text-color: hsl(200, 15%, 8%);
+    --background-color: hsl(0, 0%, 98%);
+    --elements-color: hsl(0, 0%, 100%);
+}
+
+body.dark-mode {
+    --text-color: hsl(0, 0%, 100%);
+    --background-color: hsl(207, 26%, 17%);
+    --elements-color: hsl(209, 23%, 22%);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: var(--background-color)
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Header Section Start */
+#header_section {
+    background-color: var(--elements-color);
+    color: var(--text-color);
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
+    padding: 0 70px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1300px;
+    margin-inline: auto;
+}
+
+.icon-container {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Header Section End */
+
+/* Country Details Section Start */
+#country-container {
+    max-width: 1300px;
+    margin-inline: auto;
+    padding: 50px 70px;
+}
+
+#back_btn {
+    width: 130px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--text-color);
+    background-color: var(--elements-color);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 7px;
+    font-weight: 500;
+}
+
+.country-details {
+    margin: 70px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 70px;
+}
+
+.country-details img {
+    width: 100%;
+}
+
+.country-details .image-container {
+    width: 500px;
+}
+
+.details_container {
+    display: flex;
+    gap: 70px;
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+.details_container span {
+    font-weight: 400;
+}
+
+#countryName {
+    font-size: 2rem;
+    margin: 0;
+    font-weight: 800;
+}
+
+.border-countries {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    gap: 10px;
+}
+
+.countries {
+    display: flex;
+    gap: 15px;
+}
+
+.countries p {
+    padding: 7px 20px;
+    color: var(--text-color);
+    background-color: var(--elements-color);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 5px;
+    font-weight: 400;
+}
+
+/* Country Details Section End */
