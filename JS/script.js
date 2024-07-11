@@ -17,6 +17,23 @@ function getLocalStorage(key) {
   return localStorage.getItem(key);
 }
 
+function createSkeleton() {
+  for (let i = 0; i < 10; i++) {
+    const skeleton = document.createElement("a");
+    skeleton.classList.add("country-card");
+    skeleton.innerHTML = `
+    <div class="image-container skeleton skeleton-img"></div>
+      <div class="country-info">
+        <div class="skeleton skeleton-heading"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text"></div>
+      </div>
+    `;
+    countriesContainer.appendChild(skeleton);
+  }
+}
+
 function createCountryCards(countriesData) {
   for (const country of countriesData) {
     const countryCard = document.createElement("a");
@@ -42,8 +59,10 @@ function createCountryCards(countriesData) {
 }
 
 async function getCountries() {
+  createSkeleton();
   const response = await fetch("https://restcountries.com/v3.1/all");
   const countries = await response.json();
+  countriesContainer.innerHTML = "";
   createCountryCards(countries);
 }
 
@@ -57,6 +76,9 @@ filerEl.addEventListener("click", (e) => {
 
     optionsEl.addEventListener("click", async (e) => {
       if (e.target.tagName === "LI") {
+        countriesContainer.innerHTML = "";
+        createSkeleton();
+        showFilterEl.classList.remove("show-filter");
         const clickedRegion = e.target.innerText;
         const response = await fetch(
           `https://restcountries.com/v3.1/region/${clickedRegion}`
@@ -64,7 +86,6 @@ filerEl.addEventListener("click", (e) => {
         const regionCountries = await response.json();
         countriesContainer.innerHTML = "";
         createCountryCards(regionCountries);
-        showFilterEl.classList.remove("show-filter");
       }
     });
   } else {
@@ -73,6 +94,8 @@ filerEl.addEventListener("click", (e) => {
 });
 
 searchCountriesEl.addEventListener("input", async (e) => {
+  countriesContainer.innerHTML = "";
+  createSkeleton();
   try {
     if (e.target.value) {
       const response = await fetch(

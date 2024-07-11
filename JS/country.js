@@ -1,19 +1,9 @@
 let urlCountryName = new URLSearchParams(location.search).get("name");
 
+const countryDetails = document.querySelector(".country-details");
 const themeChangeEl = document.querySelector(".theme-change");
 const themeIcon = document.querySelector(".theme-icon");
 const themeText = document.querySelector(".theme-text");
-const countryImgEl = document.querySelector(".countryImg");
-const countryNameEl = document.querySelector("#countryName");
-const nativeNameEl = document.querySelector("#nativeName");
-const populationEl = document.querySelector("#population");
-const regionEl = document.querySelector("#region");
-const subRegionEl = document.querySelector("#subRegion");
-const capitalEl = document.querySelector("#capital");
-const domainEl = document.querySelector("#domain");
-const currenciesEl = document.querySelector("#currencies");
-const languagesEl = document.querySelector("#languages");
-const bordersEl = document.querySelector(".countries");
 let isDarkMode = getLocalStorage("isDarkMode") || false;
 
 function setLocalStorage(key, value) {
@@ -25,37 +15,54 @@ function getLocalStorage(key) {
 }
 
 function createCountryCard(countryData) {
-  countryImgEl.src = countryData.flags.svg;
-  countryNameEl.innerText = countryData.name.common;
-  populationEl.innerText = countryData.population.toLocaleString("en-in");
-  regionEl.innerText = countryData.region;
-
-  if (countryData.name.nativeName) {
-    nativeNameEl.innerText = Object.values(
-      countryData.name.nativeName
-    )[0].common;
-  }
-
-  if (countryData.subregion) {
-    subRegionEl.innerText = countryData.subregion;
-  }
-
-  if (countryData.capital) {
-    capitalEl.innerText = countryData.capital[0];
-  }
-
-  if (countryData.tld) {
-    domainEl.innerText = countryData.tld[0];
-  }
-
-  if (countryData.currencies) {
-    currenciesEl.innerText = Object.values(countryData.currencies)[0].name;
-  }
-
-  if (countryData.languages) {
-    languagesEl.innerText =
-      Object.values(countryData.languages).join(", ") + ".";
-  }
+  console.log();
+  countryDetails.innerHTML = `
+  <div class="image-container">
+    <img class="countryImg" src="${countryData.flags.svg}">
+  </div>
+  <div class="country-info">
+    <h2 id="countryName">${countryData.name.common}</h2>
+    <div class="details_container">
+      <div class="left-details">
+        <p>Native Name: <span id="nativeName">${
+          countryData.name.nativeName
+            ? Object.values(countryData.name.nativeName)[0].common
+            : "N/A"
+        }</span></p>
+        <p>Population: <span id="population">${countryData.population.toLocaleString(
+          "en-in"
+        )}</span></p>
+        <p>Region: <span id="region">${countryData.region}</span></p>
+        <p>Sub Region: <span id="subRegion">${
+          countryData.subregion ? countryData.subregion : "N/A"
+        }</span></p>
+        <p>Capital: <span id="capital">${
+          countryData.capital ? countryData.capital[0] : "N/A"
+        }</span></p>
+      </div>
+      <div class="right-details">
+        <p>Top Level Domain: <span id="domain">${
+          countryData.tld ? countryData.tld[0] : "N/A"
+        }</span></p>
+        <p>Currencies: <span id="currencies">${
+          countryData.currencies
+            ? Object.values(countryData.currencies)[0].name
+            : "N/A"
+        }</span></p>
+        <p>Languages: <span id="languages">${
+          countryData.languages
+            ? Object.values(countryData.languages).join(", ") + "."
+            : "N/A"
+        }</span></p>
+      </div>
+    </div>
+    <div class="border-countries">
+      <p>Border Countries: </p>
+      <div class="countries">
+      </div>
+    </div>
+  </div>
+  `;
 
   if (countryData.borders) {
     for (let i = 0; i < 3; i++) {
@@ -78,6 +85,7 @@ async function createBorderCountries(border) {
   newBorderEl.href = `/country.html?name=${availableBorder[0].name.official}`;
   newBorderEl.innerText = availableBorder[0].name.common;
 
+  const bordersEl = document.querySelector(".countries");
   bordersEl.appendChild(newBorderEl);
 }
 
@@ -89,7 +97,7 @@ async function getCountry() {
   createCountryCard(country[0]);
 }
 
-getCountry();
+// getCountry();
 
 themeChangeEl.addEventListener("click", () => {
   document.body.classList.toggle("dark-mode");
