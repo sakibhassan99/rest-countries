@@ -14,8 +14,40 @@ function getLocalStorage(key) {
   return localStorage.getItem(key);
 }
 
+function createSkeleton() {
+  countryDetails.innerHTML = `
+  <div class="image-container skeleton skeleton-img">
+    <img class="countryImg">
+  </div>
+  <div class="country-info load-skeleton">
+    <div class="skeleton skeleton-heading"></div>
+    <div class="details_container">
+      <div class="left-details">
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text"></div>
+      </div>
+      <div class="right-details">
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text"></div>
+      </div>
+    </div>
+    <div class="border-countries">
+      <p>Border Countries: </p>
+      <div class="countries">
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text"></div>
+      </div>
+    </div>
+  </div>
+  `;
+}
+
 function createCountryCard(countryData) {
-  console.log();
   countryDetails.innerHTML = `
   <div class="image-container">
     <img class="countryImg" src="${countryData.flags.svg}">
@@ -46,7 +78,9 @@ function createCountryCard(countryData) {
         }</span></p>
         <p>Currencies: <span id="currencies">${
           countryData.currencies
-            ? Object.values(countryData.currencies)[0].name
+            ? Object.values(countryData.currencies)
+                .map((currency) => currency.name)
+                .join(", ") + "."
             : "N/A"
         }</span></p>
         <p>Languages: <span id="languages">${
@@ -65,39 +99,43 @@ function createCountryCard(countryData) {
   `;
 
   if (countryData.borders) {
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < countryData.borders.length; i++) {
       let border = countryData.borders[i];
       if (border) {
         createBorderCountries(border);
       }
     }
-  } else {
-    bordersEl.innerText = "N/A";
   }
 }
 
 async function createBorderCountries(border) {
+  const bordersEl = document.querySelector(".countries");
   const response = await fetch(
     `https://restcountries.com/v3.1/alpha/${border}`
   );
   const availableBorder = await response.json();
   const newBorderEl = document.createElement("a");
-  newBorderEl.href = `/country.html?name=${availableBorder[0].name.official}`;
+  newBorderEl.href = `/country.html?name=${availableBorder[0].name.common}?fullText=true`;
   newBorderEl.innerText = availableBorder[0].name.common;
 
-  const bordersEl = document.querySelector(".countries");
   bordersEl.appendChild(newBorderEl);
 }
 
 async function getCountry() {
-  const response = await fetch(
-    `https://restcountries.com/v3.1/name/${urlCountryName}`
-  );
-  const country = await response.json();
-  createCountryCard(country[0]);
+  countryDetails.innerHTML = "";
+  createSkeleton();
+  try {
+    const response = await fetch(
+      `https://restcountries.com/v3.1/name/${urlCountryName}`
+    );
+    const country = await response.json();
+    createCountryCard(country[0]);
+  } catch (err) {
+    countryDetails.innerHTML = `<img src="/assets/Images/404 Error.svg" style="width: 100%;">`;
+  }
 }
 
-// getCountry();
+getCountry();
 
 themeChangeEl.addEventListener("click", () => {
   document.body.classList.toggle("dark-mode");

@@ -37,7 +37,7 @@ function createSkeleton() {
 function createCountryCards(countriesData) {
   for (const country of countriesData) {
     const countryCard = document.createElement("a");
-    countryCard.href = `/country.html?name=${country.name.official}`;
+    countryCard.href = `/country.html?name=${country.name.official}?fullText=true`;
     countryCard.classList.add("country-card");
     countryCard.innerHTML = `
     <div class="image-container">
@@ -77,6 +77,7 @@ filerEl.addEventListener("click", (e) => {
     optionsEl.addEventListener("click", async (e) => {
       if (e.target.tagName === "LI") {
         countriesContainer.innerHTML = "";
+        searchCountriesEl.value = "";
         createSkeleton();
         showFilterEl.classList.remove("show-filter");
         const clickedRegion = e.target.innerText;
@@ -110,7 +111,7 @@ searchCountriesEl.addEventListener("input", async (e) => {
     }
   } catch (err) {
     countriesContainer.innerHTML = `
-    <img src="./assets/Images/404 Error.png" style="width:100%">
+    <img src="/assets/Images/404 Error.svg" style="width:100%">
     `;
   }
 });
