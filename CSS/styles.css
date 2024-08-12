@@ -67,6 +67,9 @@ a {
 
 /* Header Section Start */
 #header_section {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   background-color: var(--elements-color);
   color: var(--text-color);
   box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
@@ -187,12 +190,11 @@ a {
 
 .countries-container {
   padding: 40px 0;
-  display: flex;
   max-width: 1300px;
   margin-inline: auto;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 50px;
-  justify-content: space-between;
 }
 
 .image-container {
@@ -201,13 +203,13 @@ a {
 
 .country-card .image-container img {
   height: 100%;
+  object-fit: cover;
   width: 100%;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .country-card {
   cursor: pointer;
-  width: 260px;
   border-radius: 6px;
   overflow: hidden;
   color: var(--text-color);
